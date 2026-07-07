@@ -1,0 +1,42 @@
+name: __NAME__
+
+options:
+  bundleIdPrefix: dev.swiftstudylab
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+
+targets:
+  __NAME__App:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/__NAME__App
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.swiftstudylab.__NAME_LOWER__
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+
+schemes:
+  __NAME__App:
+    build:
+      targets:
+        __NAME__App: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    archive:
+      config: Release

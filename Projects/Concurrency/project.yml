@@ -1,0 +1,59 @@
+# =========================================================
+# project.yml — especificação declarativa do projeto Xcode
+# Documentação completa: https://github.com/yonaskolb/XcodeGen/blob/main/Docs/ProjectSpec.md
+# =========================================================
+
+name: Concurrency          # nome do .xcodeproj gerado (Concurrency.xcodeproj)
+
+options:
+  bundleIdPrefix: dev.swiftstudylab
+  deploymentTarget:
+    iOS: "18.0"             # SwiftUI/Swift Concurrency mais recentes exigem uma base alta
+  createIntermediateGroups: true
+  usesTabs: false
+  indentWidth: 4
+
+# configs define os "build configurations" (Debug/Release) e mapeiam
+# para o tipo interno (debug/release) usado pelo XcodeGen
+configs:
+  Debug: debug
+  Release: release
+
+# settings.base se aplica a TODOS os targets, a não ser que
+# um target sobrescreva individualmente
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete        # concurrency checking completo (Swift 6 mode)
+    SWIFT_APPROACHABLE_CONCURRENCY: YES        # facilita inferência de @MainActor/Sendable
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+
+targets:
+  ConcurrencyApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/ConcurrencyApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.swiftstudylab.concurrency
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+
+# schemes definem o que roda no Cmd+R / xcodebuild
+schemes:
+  ConcurrencyApp:
+    build:
+      targets:
+        ConcurrencyApp: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    archive:
+      config: Release
