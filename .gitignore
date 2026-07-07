@@ -64,3 +64,6 @@ fastlane/test_output
 # XcodeGen
 *.xcodeproj
 *.xcworkspace
+
+#MacOS
+.DS_Store
